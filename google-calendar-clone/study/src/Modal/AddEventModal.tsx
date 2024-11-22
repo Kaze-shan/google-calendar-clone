@@ -18,7 +18,7 @@ type InputValueType = {
 export default function AddEventModal() {
   const { dayInfo, event, toggle } = useModal()
   const { addEvent, editEvent, removeEvent } = useCalendar()
-  const title = dayInfo ? format(dayInfo.date, "dd/MM/yy") : ""
+  const subTitle = dayInfo ? format(dayInfo.date, "dd/MM/yy") : ""
   const endTimeInputRef = useRef<HTMLInputElement>(null)
   const [inputValue, setInputValue] = useState<InputValueType>({
     name: event ? event.eventName : "",
@@ -131,7 +131,7 @@ export default function AddEventModal() {
   }
 
   return (
-    <Modal title={title} closeModal={toggle}>
+    <Modal title={event? 'Edit Event': 'Add Event'} subTitle={subTitle} closeModal={toggle}>
       <form onSubmit={saveEvent}>
         <div className="form-group">
           <label htmlFor="name">Name</label>
