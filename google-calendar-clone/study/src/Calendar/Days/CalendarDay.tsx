@@ -20,6 +20,10 @@ export default function CalendarDay({ day, currentTime }: DayProps) {
     setModalMode(MODAL_TYPE.EVENT, day)
   }
 
+  const openAllEventsModal = () => {
+    setModalMode(MODAL_TYPE.DAY, day)
+  }
+
   return (
     <div
       className={`day ${isCurrentMonthDay ? "" : "non-month-day"} ${
@@ -36,6 +40,7 @@ export default function CalendarDay({ day, currentTime }: DayProps) {
         </button>
       </div>
       <CalendarEvents day={day} events={day.events} />
+      <button onClick={openAllEventsModal} className="events-view-more-btn">+2 More</button>
     </div>
   )
 }

@@ -20,6 +20,7 @@ type ModalContextType = {
     setModalMode: (mode: MODAL_TYPE,  day: Day, event?: Event) => void
     open: boolean
     toggle: ()=> void
+    triggerCloseAnimation: boolean
 }
 
 const ModalContext = createContext<ModalContextType | null>(null)
@@ -38,6 +39,7 @@ export const ModalProvider = ({ children }: { children: ReactNode }) => {
   const [dayInfo, setDayInfo] = useState< Day | null>(null)
   const [event, setEvent] = useState< Event | null>(null)
   const {open, toggle} = useToggle()
+  const [triggerCloseAnimation, setTriggerCloseAnimation] = useState(false)
 
   const setModalMode = (mode: MODAL_TYPE, day: Day, event?: Event) => {
 
@@ -51,14 +53,21 @@ export const ModalProvider = ({ children }: { children: ReactNode }) => {
   }
 
   const closeModal = () => {
-    setMode(null)
-    setDayInfo(null)
-    setEvent(null)
-    toggle()
+
+    setTriggerCloseAnimation(true)
+
+    setTimeout(()=>{
+      toggle()
+      setTriggerCloseAnimation(false)
+      setMode(null)
+      setDayInfo(null)
+      setEvent(null)
+    }, 250)
+
   }
 
   return (
-    <ModalContext.Provider value={{ mode, setModalMode, dayInfo, event, open, toggle: closeModal }}>
+    <ModalContext.Provider value={{ mode, setModalMode, dayInfo, event, open, toggle: closeModal, triggerCloseAnimation }}>
       {children}
     </ModalContext.Provider>
   )

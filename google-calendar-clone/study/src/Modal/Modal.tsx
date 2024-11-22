@@ -9,10 +9,12 @@ type ModalProps = {
 }
 
 export default function Modal({ title, subTitle, closeModal, children }: ModalProps) {
-  const {toggle} = useModal()
+
+  const {triggerCloseAnimation} = useModal()
+
   return (
-    <div className="modal">
-      <div className="overlay" onClick={toggle}></div>
+    <div key={triggerCloseAnimation + ""} className={triggerCloseAnimation? "modal closing" : "modal"} >
+      <div className="overlay" onClick={closeModal}></div>
       <div className="modal-body">
         <div className="modal-title">
           <div>{title}</div>
