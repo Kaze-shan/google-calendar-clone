@@ -2,6 +2,7 @@ import { format, isBefore, isSameMonth, isToday } from "date-fns"
 import CalendarEvents from "../../CalendarEvents/CalendarEvents"
 import type { Day } from "./CalendarDays"
 import { MODAL_TYPE, useModal } from "../../contexts/ModalContext"
+import { useState } from "react"
 
 type DayProps = {
   day: Day
@@ -10,6 +11,7 @@ type DayProps = {
 
 export default function CalendarDay({ day, currentTime }: DayProps) {
   const { setModalMode } = useModal()
+  const [showMoreCount, setShowMoreCount] = useState(0)
   const isCurrentMonthDay = isSameMonth(day.date, currentTime)
   const isBeforeToday = isBefore(day.date, new Date()) && !isToday(day.date)
   const isCalendarDayToday = isToday(day.date)
@@ -39,8 +41,11 @@ export default function CalendarDay({ day, currentTime }: DayProps) {
           +
         </button>
       </div>
-      <CalendarEvents day={day} events={day.events} />
-      <button onClick={openAllEventsModal} className="events-view-more-btn">+2 More</button>
+      <CalendarEvents day={day} events={day.events} showMoreCount={showMoreCount} setShowMoreCount={setShowMoreCount}/>
+      {
+        showMoreCount?
+        <button onClick={openAllEventsModal} className="events-view-more-btn">+{showMoreCount} More</button> : <></>
+      }
     </div>
   )
 }
