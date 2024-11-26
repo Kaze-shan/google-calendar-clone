@@ -6,18 +6,18 @@ export default function ModalWrapper() {
 
     const {mode, open} = useModal();
 
-    const renderModal = () => {
-        switch(mode) {
-            case MODAL_TYPE.DAY:
-                return <DisplayDayEventModal />
-            case MODAL_TYPE.EVENT:
-                return <AddEventModal />
-            default:
-                return <></>
-        }
-    }
-
-  return ( open &&
-    renderModal()
+  return ( open && mode !== null &&
+    <ModalContent mode={mode} />
   )
+}
+
+const ModalContent = ({mode}: {mode: MODAL_TYPE}) => {
+    switch(mode) {
+        case MODAL_TYPE.DAY:
+            return <DisplayDayEventModal />
+        case MODAL_TYPE.EVENT:
+            return <AddEventModal />
+        default:
+            return <></>
+    }
 }

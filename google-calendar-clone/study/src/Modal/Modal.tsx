@@ -13,7 +13,7 @@ export default function Modal({ title, subTitle, closeModal, children }: ModalPr
   const {triggerCloseAnimation} = useModal()
 
   return (
-    <div key={triggerCloseAnimation + ""} className={triggerCloseAnimation? "modal closing" : "modal"} >
+    <div className={triggerCloseAnimation? "modal closing" : "modal"} >
       <div className="overlay" onClick={closeModal}></div>
       <div className="modal-body">
         <div className="modal-title">

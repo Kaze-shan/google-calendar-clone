@@ -49,7 +49,7 @@ export const ModalProvider = ({ children }: { children: ReactNode }) => {
 
     if(event)setEvent(event)
 
-    toggle()
+      if(!open) toggle()
   }
 
   const closeModal = () => {
