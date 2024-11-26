@@ -55,7 +55,9 @@ export default function CalendarEvents({
       height,
       events.length
     )
-    if (Math.floor(eventsVisibleOnScreen) < events.length) {
+    const lastElementVisibleOnScreen =
+        eventsVisibleOnScreen % 1 > 0.4 ? 1 : 0
+    if (Math.floor(eventsVisibleOnScreen) + lastElementVisibleOnScreen < events.length) {
       const eventsVisibleOnScreenWithShowMoreBtn = getNumberOfEventsDisplay(
         showMoreCount? height : height - SHOW_MORE_HEIGHT,
         events.length
